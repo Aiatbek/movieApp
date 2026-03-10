@@ -2,12 +2,14 @@ import "./css/Home.css"
 import { useEffect, useState } from 'react'
 import MovieCard from "./movieCard.jsx";
 import { getPopularMovies, searchMovies} from "./api.js";
+import MovieDetail from "./MovieDetail.jsx";
 
 export default function Home(){
     const [search, setSearch] = useState("")
     const [loading, setLoading] = useState(false)
     const [error, setError] = useState(null)
     const [movies, setMovies] = useState([])
+    const [isOn, setIsOn] = useState(null)
 
     useEffect(()=>{
         (async function() {
@@ -43,6 +45,17 @@ export default function Home(){
     }
 
 
+    const open = (movie) => {
+        setIsOn(movie)
+    }
+
+    const close = () => {
+        setIsOn(null)
+    }   
+
+
+
+
     return (
        <div className="home">
          <form className='search-form' onSubmit={handleSearch}>
@@ -53,8 +66,8 @@ export default function Home(){
         {error && <div className="error-message">{error}</div>}
 
         {loading? <div className="loading">Loading...</div> : <div className="movies-grid">
-            {movies.map((movie)=>{
-                return <MovieCard key={movie.id} movie={movie}/>
+            {isOn? <MovieDetail close={close} movie={isOn}/> : movies.map((movie)=>{
+                return  <MovieCard key={movie.id} movie={movie} open={open}/>
             })}
         </div>}
        </div>

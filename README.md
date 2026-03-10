@@ -9,6 +9,10 @@ So basically when clicked on fav-btn it was just adding or removing our specific
 
 Also to display active(red) heart not only in favorites list but also on movies list we used isFavorite method which checked whether we have this movie in "favorites" list.
 
+--Learned that event can bubble up to parent containers, ex: when clicking fav-btn it was also trigerring onClick on poster's onClick. To stop that when can use stopPropogation on fav-btn and it will stop bubble up. 
+
+-> Learned how to store movie obj in a state when sth is clicked, and check whether it is empty and based on that conditionally render ither whole list with map or just on movieDetail. 
+
 -async functions always return promises
 
 -->CONTEXT FILE IS THE MOST IMPORTANT ONE

@@ -1,12 +1,13 @@
 import './css/movieCard.css'
 import { useMovieContext } from "./context.jsx";
 
-export default function MovieCard({movie}){
+export default function MovieCard({movie, open}){
 
     const { addFavorite, removeFavorite, isFavorite } = useMovieContext()
 
     const handleFavorite = (e) => {
         e.preventDefault()
+        e.stopPropagation()   // ← prevent parent onClick
         
         if (isFavorite(movie.id)) {
             removeFavorite(movie.id)
@@ -16,9 +17,9 @@ export default function MovieCard({movie}){
     }
 
     return (
-        <div className="movie-card">
+        <div className="movie-card" onClick={() => open(movie)}>
         <div className="movie-poster">
-            <img src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`} alt={movie.title} className="movie-poster" />
+            <img src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`} alt={movie.title} className="movie-poster" onClick={() => open(movie)}/>
             <div className="movie-overlay">
                 <button onClick={handleFavorite} className={`favorite-btn${isFavorite(movie.id) ? ' active' : ''}`}>♥</button>
             </div>
